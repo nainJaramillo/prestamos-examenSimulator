@@ -2,7 +2,7 @@ package es.fplumara.dam1.prestamos.model;
 
 import java.time.LocalDate;
 
-public class Prestamo {
+public class Prestamo implements Identificable{
     Long id;
     Long idMaterial;
     String profesor;

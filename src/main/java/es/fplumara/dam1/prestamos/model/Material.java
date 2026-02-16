@@ -14,7 +14,7 @@ public abstract class Material implements Identificable {
     }
 
     @Override
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
