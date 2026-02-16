@@ -36,6 +36,7 @@
         <surefire.version>3.2.5</surefire.version>
     </properties>
 
+
     <build>
         <plugins>
             <plugin>
