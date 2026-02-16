@@ -15,7 +15,7 @@ public class Prestamo implements Identificable{
         this.fecha = fecha;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
