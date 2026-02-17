@@ -1,6 +1,26 @@
 package es.fplumara.dam1.prestamos.service;
 
+import es.fplumara.dam1.prestamos.exception.MaterialNoDisponibleException;
+import es.fplumara.dam1.prestamos.exception.NoEncontradoException;
+import es.fplumara.dam1.prestamos.model.Material;
+import es.fplumara.dam1.prestamos.model.Prestamo;
+import es.fplumara.dam1.prestamos.repository.MaterialRepositoryImpl;
+import es.fplumara.dam1.prestamos.repository.PrestamoRepositoryImpl;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.commons.function.Try;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.SQLOutput;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 class PrestamosServiceTest {
 
     // TODO (alumnos): añadir JUnit 5 y Mockito en el pom.xml y completar:
@@ -11,4 +31,47 @@ class PrestamosServiceTest {
     // - devolverMaterial_ok_cambiaADisponible()
     //
     // Requisito: usar mocks de repositorios y verify(...)
+
+    @Mock
+    private PrestamoRepositoryImpl prestamoRepository;
+    @Mock
+    private MaterialRepositoryImpl materialRepository;
+    @InjectMocks
+    private PrestamoService prestamoService;
+
+    @Test
+   public void crearPrestamo_materialNoExiste_lanzaNoEncontrado(){
+        when(materialRepository.findById(1L)).thenReturn(Optional.empty());
+        try {
+            prestamoService.crearPrestamo(1L);
+            System.out.println("Material no encontrado");
+        }catch (NoEncontradoException e){
+
+        }
+        verify(materialRepository, null.save(any(Material.class)));
+        verify(materialRepository, null.save(any(Prestamo.class)));
+    }
+    @Test
+    public void crearPrestamo_materialNoDisponible_lanzaMaterialNoDisponible(){
+        Material mat = new Material(1L, true);
+        when(materialRepository.findById(1l).thenReturn(Optional.of(mat)));
+        try {
+            prestamoService.crearPrestamo(1L);
+            System.out.println("Material No disponible");
+        }catch (MaterialNoDisponibleException e){
+
+        }
+        verify(materialRepository, null()).save(any(Material.class));
+        verify(materialRepository, null()).save(any(Prestamo.class));
+    }
+    @Test
+    public void devolverMaterial_ok_cambiaADisponible(){
+        Material mat= new Material(1L, false);
+        when(materialRepository.findById(1L)).thenReturn(Optional.of(mat));
+        when(materialRepository.save(mat)).thenReturn(mat);
+
+        prestamoService.devolerMaterial(1L);
+        verify(materialRepository).save(mat);
+    }
+
 }
