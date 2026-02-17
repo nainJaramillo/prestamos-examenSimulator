@@ -21,4 +21,7 @@ public class PrestamoService {
             throw new IllegalArgumentException("invalido");
         }
     }
+
+    public void devolerMaterial(long l) {
+    }
 }
