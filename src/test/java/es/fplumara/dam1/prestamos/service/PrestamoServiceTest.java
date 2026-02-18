@@ -41,36 +41,36 @@ class PrestamosServiceTest {
 
     @Test
    public void crearPrestamo_materialNoExiste_lanzaNoEncontrado(){
-        when(materialRepository.findById(1L)).thenReturn(Optional.empty());
+        when(materialRepository.findById(1)).thenReturn(Optional.empty());
         try {
-            prestamoService.crearPrestamo(1L);
+            prestamoService.crearPrestamo(1);
             System.out.println("Material no encontrado");
         }catch (NoEncontradoException e){
 
         }
-        verify(materialRepository, null.save(any(Material.class)));
-        verify(materialRepository, null.save(any(Prestamo.class)));
+        verify(materialRepository, null.save((Material.class)));
+        verify(materialRepository, null.save((Prestamo.class)));
     }
     @Test
     public void crearPrestamo_materialNoDisponible_lanzaMaterialNoDisponible(){
-        Material mat = new Material(1L, true);
-        when(materialRepository.findById(1l).thenReturn(Optional.of(mat)));
+        Material mat = new Material(1, true);
+        when(materialRepository.findById(1).thenReturn(Optional.of(mat)));
         try {
-            prestamoService.crearPrestamo(1L);
+            prestamoService.crearPrestamo(1);
             System.out.println("Material No disponible");
         }catch (MaterialNoDisponibleException e){
 
         }
-        verify(materialRepository, null()).save(any(Material.class));
-        verify(materialRepository, null()).save(any(Prestamo.class));
+        verify(materialRepository, null()).save((Material.class));
+        verify(materialRepository, null()).save((Prestamo.class));
     }
     @Test
     public void devolverMaterial_ok_cambiaADisponible(){
-        Material mat= new Material(1L, false);
-        when(materialRepository.findById(1L)).thenReturn(Optional.of(mat));
+        Material mat= new Material(1, false);
+        when(materialRepository.findById(1)).thenReturn(Optional.of(mat));
         when(materialRepository.save(mat)).thenReturn(mat);
 
-        prestamoService.devolerMaterial(1L);
+        prestamoService.devolerMaterial(1);
         verify(materialRepository).save(mat);
     }
 

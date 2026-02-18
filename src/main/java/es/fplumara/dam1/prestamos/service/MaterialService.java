@@ -7,12 +7,16 @@ import es.fplumara.dam1.prestamos.exception.MaterialNoDisponibleException;
 import es.fplumara.dam1.prestamos.exception.NoEncontradoException;
 import es.fplumara.dam1.prestamos.model.EstadoMaterial;
 import es.fplumara.dam1.prestamos.model.Material;
+import es.fplumara.dam1.prestamos.repository.MaterialRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MaterialService {
     private List<Material> materiales = new ArrayList<>();
+
+    public MaterialService(MaterialRepositoryImpl materialRepository) {
+    }
 
     public void registrarMaterial(Material m){
         if (m == null){

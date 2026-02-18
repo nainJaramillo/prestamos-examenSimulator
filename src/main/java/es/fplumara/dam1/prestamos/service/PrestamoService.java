@@ -2,6 +2,7 @@ package es.fplumara.dam1.prestamos.service;
 
 
 import es.fplumara.dam1.prestamos.model.Material;
+import es.fplumara.dam1.prestamos.repository.MaterialRepositoryImpl;
 import es.fplumara.dam1.prestamos.repository.PrestamoRepositoryImpl;
 
 import java.time.LocalDate;
@@ -14,10 +15,12 @@ public class PrestamoService {
         this.materialService = materialService;
         this.prestamoRepository = prestamoRepository;
     }
+
+    public PrestamoService(MaterialRepositoryImpl materialRepository) {
+    }
+
     public void crearPrestamo(String idMaterial, String profesor, LocalDate fecha){
-        if (idMaterial == null || idMaterial.isEmpty()
-            || profesor == null || profesor.isEmpty()
-            || fecha == null)    {
+        if (idMaterial == null || idMaterial.isEmpty()){
             throw new IllegalArgumentException("invalido");
         }
     }

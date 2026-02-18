@@ -3,12 +3,12 @@ package es.fplumara.dam1.prestamos.model;
 import java.time.LocalDate;
 
 public class Prestamo implements Identificable{
-    Long id;
+    String id;
     Long idMaterial;
     String profesor;
     LocalDate fecha;
 
-    public Prestamo(Long id, Long idMaterial, String profesor, LocalDate fecha) {
+    public Prestamo(String id, Long idMaterial, String profesor, LocalDate fecha) {
         this.id = id;
         this.idMaterial = idMaterial;
         this.profesor = profesor;
@@ -19,7 +19,7 @@ public class Prestamo implements Identificable{
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
