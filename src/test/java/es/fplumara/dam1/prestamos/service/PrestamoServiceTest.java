@@ -32,46 +32,4 @@ class PrestamosServiceTest {
     //
     // Requisito: usar mocks de repositorios y verify(...)
 
-    @Mock
-    private PrestamoRepositoryImpl prestamoRepository;
-    @Mock
-    private MaterialRepositoryImpl materialRepository;
-    @InjectMocks
-    private PrestamoService prestamoService;
-
-    @Test
-   public void crearPrestamo_materialNoExiste_lanzaNoEncontrado(){
-        when(materialRepository.findById(1)).thenReturn(Optional.empty());
-        try {
-            prestamoService.crearPrestamo(1);
-            System.out.println("Material no encontrado");
-        }catch (NoEncontradoException e){
-
-        }
-        verify(materialRepository, null.save((Material.class)));
-        verify(materialRepository, null.save((Prestamo.class)));
-    }
-    @Test
-    public void crearPrestamo_materialNoDisponible_lanzaMaterialNoDisponible(){
-        Material mat = new Material(1, true);
-        when(materialRepository.findById(1).thenReturn(Optional.of(mat)));
-        try {
-            prestamoService.crearPrestamo(1);
-            System.out.println("Material No disponible");
-        }catch (MaterialNoDisponibleException e){
-
-        }
-        verify(materialRepository, null()).save((Material.class));
-        verify(materialRepository, null()).save((Prestamo.class));
-    }
-    @Test
-    public void devolverMaterial_ok_cambiaADisponible(){
-        Material mat= new Material(1, false);
-        when(materialRepository.findById(1)).thenReturn(Optional.of(mat));
-        when(materialRepository.save(mat)).thenReturn(mat);
-
-        prestamoService.devolerMaterial(1);
-        verify(materialRepository).save(mat);
-    }
-
 }

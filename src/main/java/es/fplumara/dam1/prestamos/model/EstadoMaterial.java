@@ -3,5 +3,5 @@ package es.fplumara.dam1.prestamos.model;
 public enum EstadoMaterial {
     DISPONIBLE,
     PRESTAD,
-    BAJA
+    PRESTADO, BAJA
 }
